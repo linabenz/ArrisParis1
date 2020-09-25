@@ -1,0 +1,17 @@
+img{
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+  }
+.caisson{
+    background: center / contain no-repeat url("/images/caisson.png");
+
+}
+.decoupe{
+    background:center / cover no-repeat url('/images/decoupe.png') ;
+    border-width: 1px;
+
+}
+.croquis{
+    background:  bottom / contain no-repeat url("/img/croquis.jpg");
+}

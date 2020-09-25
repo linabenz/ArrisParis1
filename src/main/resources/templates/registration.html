@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <style>img{
+        display: block;
+        margin-left: auto;
+        margin-right: auto
+    }</style>
+
+    <title>Inscription</title>
+    <style>
+        img.
+    </style>
+</head>
+<body>
+
+<!-- Image principale -->
+<div class="container-fluid">
+    <div class="container">
+        <img th:src="@{/images/image.jpg}" alt="arrisimage">
+    </div>
+</div>
+
+<!-- Navbar menu  -->
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="#">ARRIS BATIMENT</a>
+
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                <li class="nav-item ">
+                    <a class="nav-link" href="découpe.html">Découpe</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="meuble_sur_mesure.html">Meuble sur mesure</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="agencement.html">Agencement</a>
+                </li>
+                <li>
+                    <a class="nav-link" href="contact.html">Contact-nous</a>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="alert alert-info" th:if="${param.success}"> Inscription validée</div>
+            <h1>Inscription</h1>
+            <form th:action="@{/registration}" method="post" th:object="${user}">
+                <div class="form-group">
+                    <label for="firstname">Firstname</label>
+                    <input id="firstname" class="form-control" th:field="*{firstname}"
+                           required="required" placeholder="Pedro">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Lastname</label>
+                    <input id="lastname" class="form-control"
+                           th:field="*{lastname}" required="required" placeholder="De la Costa">
+                </div>
+
+                <div class="form-group">
+                    <label for="lastname">Email</label>
+                    <input type="email" id="email" class="form-control"
+                           th:field="*{email}" required="required" placeholder="pedro2066@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="password"> Password</label>
+                    <input type="password" id="password" class="form-control"
+                           th:field="*{password}" required="required" >
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3">
+                            <input type="submit" name="Valider" id="login"
+                                   class="form-control btn btn-primary"
+                                   value="Valider l'inscription">
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
