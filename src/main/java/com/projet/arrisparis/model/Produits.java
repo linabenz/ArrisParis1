@@ -10,6 +10,7 @@ public class Produits implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long id_Produit;
 
     private String nom;
@@ -33,8 +34,6 @@ public class Produits implements Serializable {
     @ManyToOne
     User user;
 
-    @ManyToOne
-    Commandes commandes;
 
     public Produits() {
     }
@@ -47,14 +46,14 @@ public class Produits implements Serializable {
         this.profondeur = profondeur;
     }
 
-    public Produits(String nom, String epaisseur, int longueur, int largeur, int profondeur, User user, Commandes commandes) {
+    public Produits(String nom, String epaisseur, int longueur, int largeur, int profondeur, User user) {
         this.nom=nom;
         this.epaisseur = epaisseur;
         this.longueur = longueur;
         this.largeur = largeur;
         this.profondeur = profondeur;
         this.user = user;
-        this.commandes = commandes;
+
     }
 
 

@@ -90,7 +90,6 @@
                             <th>&nbsp;</th>
                             <th>Produit</th>
                             <th>Dimension</th>
-                            <th>Quantity</th>
                             <th>Prix unitaire</th>
                         </tr>
                         </thead>
@@ -103,10 +102,10 @@
                             <td th:text="${produit.type} + ' en ' + ${produit.nom}" class="product-name"></td>
                             <td th:text="${produit.longueur} + 'x'+${produit.largeur} + 'x'+${produit.profondeur}"></td>
                             <td class="quantity">
-                                <form th:action="@{/update/{id}(id=${produit.id_Produit})}" method="get" th:object="${produit}">
+                               <!-- <form th:action="@{/update/{id}(id=${produit.id_Produit})}" method="get" th:object="${produit}">
                                     <input th:value="${produit.qte}" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="30">
                                     <button type="submit" role ="button" class = "btn btn-warning containe" >Save</button>
-                                </form>
+                                </form>-->
                             </td>
                             <td  th:text="${produit.prix}" class="price"></td>
 
