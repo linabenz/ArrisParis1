@@ -1,2 +1,16 @@
-package com.projet.arrisparis.controller;public class CommandeController {
+package com.projet.arrisparis.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("commande")
+public class CommandeController {
+
+    @RequestMapping("/new")
+    public String nouvelleCommande(Model model){
+        return "commande";
+    }
+
 }

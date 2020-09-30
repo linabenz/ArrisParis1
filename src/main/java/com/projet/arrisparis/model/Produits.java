@@ -1,7 +1,4 @@
 package com.projet.arrisparis.model;
-
-import com.sun.istack.NotNull;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,7 +8,7 @@ public class Produits implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Long id_Produit;
+    private Long id;
 
     private String nom;
 
@@ -19,26 +16,22 @@ public class Produits implements Serializable {
 
     private String type;
 
-    private int longueur;
+    private double longueur;
 
-    private int largeur;
+    private double largeur;
 
+    private double profondeur;
 
-    private int profondeur;
-
-
-    private float prix;
-
-
+    private double prix;
 
     @ManyToOne
-    User user;
+    private Commande commande;
 
 
     public Produits() {
     }
 
-    public Produits(String nom, String epaisseur, int longueur, int largeur, int profondeur) {
+    public Produits(String nom, String epaisseur, double  longueur, double  largeur, double  profondeur) {
         this.nom=nom;
         this.epaisseur = epaisseur;
         this.longueur = longueur;
@@ -46,33 +39,18 @@ public class Produits implements Serializable {
         this.profondeur = profondeur;
     }
 
-    public Produits(String nom, String epaisseur, int longueur, int largeur, int profondeur, User user) {
-        this.nom=nom;
-        this.epaisseur = epaisseur;
-        this.longueur = longueur;
-        this.largeur = largeur;
-        this.profondeur = profondeur;
-        this.user = user;
-
-    }
 
 
-    public Produits(String nom, String epaisseur, int longueur, int largeur) {
+    public Produits(String nom, String epaisseur, double longueur, double largeur) {
         this.nom=nom;
         this.epaisseur = epaisseur;
         this.longueur = longueur;
         this.largeur = largeur;
     }
 
-    public Produits(Long id_Produit,String nom,float prix) {
-        this.id_Produit = id_Produit;
-        this.nom=nom;
-        this.prix=prix;
 
-    }
-
-    public Produits(Long id_Produit, String nom, String epaisseur, String type, int longueur, int largeur, int profondeur, float prix, int qte) {
-        this.id_Produit = id_Produit;
+    public Produits(Long id, String nom, String epaisseur, String type, double longueur, double largeur, double profondeur, double prix, Commande commande) {
+        this.id = id;
         this.nom = nom;
         this.epaisseur = epaisseur;
         this.type = type;
@@ -80,14 +58,23 @@ public class Produits implements Serializable {
         this.largeur = largeur;
         this.profondeur = profondeur;
         this.prix = prix;
+        this.commande = commande;
     }
 
-    public Long getId_Produit() {
-        return id_Produit;
+    public Commande getCommande() {
+        return commande;
     }
 
-    public void setId_Produit(Long id_Produit) {
-        this.id_Produit = id_Produit;
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id_Produit) {
+        this.id= id_Produit;
     }
 
     public String getNom() {
@@ -114,43 +101,39 @@ public class Produits implements Serializable {
         this.type = type;
     }
 
-    public int getLongueur() {
+    public double  getLongueur() {
         return longueur;
     }
 
-    public void setLongueur(int longeur) {
+    public void setLongueur(double longeur) {
         this.longueur = longeur;
     }
 
-    public int getLargeur() {
+    public double  getLargeur() {
         return largeur;
     }
 
-    public void setLargeur(int largeur) {
+    public void setLargeur(double largeur) {
         this.largeur = largeur;
     }
 
-    public int getProfondeur() {
+    public double  getProfondeur() {
         return profondeur;
     }
 
-    public void setProfondeur(int profondeur) {
+    public void setProfondeur(double profondeur) {
         this.profondeur = profondeur;
     }
 
-    public float getPrix() {
+    public double  getPrix() {
         return prix;
     }
 
-    public void setPrix(float prix) {
+    public void setPrix(double prix) {
         this.prix = prix;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCommande(long id) {
     }
 }

@@ -1,4 +1,95 @@
 <!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Cart Page</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css}" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+
+    <title>Arrisparis Découpe</title>
+</head>
+<body>
+
+<!-- Navbar menu  -->
+<div th:include="fragment/navbar.html"></div>
+<br>
+<!-- END nav -->
+<div class="container-fluid">
+    <div class="container">
+<h1>Panier</h1>
+
+<th:block th:if="${session.panier.isEmpty()}">Aucun panier</th:block>
+<h4>Total: <span th:text="${session.panier.total}"></span></h4>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>name</th>
+        <th>price</th>
+        <th>quantity</th>
+        <th>subtotal</th>
+        <th>remove</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item : ${session.panier.items}">
+        <td th:text="${item.produits.id}"></td>
+        <td th:text="${item.produits.nom}"></td>
+        <td>Rs.<span th:text="${item.produits.prix}"></span></td>
+        <td>
+            <form action="#" th:action="@{/panier/update}" method="post">
+                <input type="hidden" th:value="${item.produits.id}" name="id"/>
+                <input type="number" min="1" th:value="${item.quantity}" name="qty"/>
+                <button type="submit">update</button>
+            </form>
+        </td>
+        <td><span th:text="${item.subTotal}"></span></td>
+        <td>
+            <form action="#" th:action="@{/panier/remove}" method="post">
+                <input type="hidden" th:value="${item.produits.id}" name="id"/>
+                <button type="submit">remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+ <form  th:action="@{/panier/validation}" method="post">
+ <button class ="btn btn-warning container" value="Valider la commande" type="submit" role="button">Valider la commande</button>
+ </form>
+</div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>ArrisParis cart</title>
@@ -28,62 +119,29 @@
     <link rel="stylesheet" th:href="@{css/icomoon.css}">
     <link rel="stylesheet" th:href="@{css/style.css}">
 
-    <style>img{
-        display: block;
-        margin-left: auto;
-        margin-right: auto
-    }</style>
-
 </head>
-<!-- Image principale -->
+&lt;!&ndash; Image principale &ndash;&gt;
 <div class="container-fluid">
     <div class="container">
         <img th:src="@{/images/image.jpg}" alt="arrisimage">
     </div>
 </div>
 
-<!-- Navbar menu  -->
+&lt;!&ndash; Navbar menu  &ndash;&gt;
+<div th:include="fragment/navbar.html"></div>
+<br>
+&lt;!&ndash; END nav &ndash;&gt;
 
-<div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a class="navbar-brand" href="#">ARRIS BATIMENT</a>
-
-            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <li class="nav-item ">
-                    <a class="nav-link" href="decoupe">Découpe</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="meuble">Meuble sur mesure</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="agencement">Agencement</a>
-                </li>
-                <li>
-                    <a class="nav-link" href="contact">Contact-nous</a>
-                </li>
-                <li class="nav-item cta cta-colored"><a href="cart.html" class="nav-link"><span class="icon-shopping_cart"></span>[0]</a></li>
-
-            </ul>
-
-        </div>
-    </nav>
-</div>
-
-<!-- END nav -->
-
-<!-- START CART-->
+&lt;!&ndash; START CART&ndash;&gt;
 
 <section class="ftco-section ftco-cart">
-    <div class="container">
+    <div class="container-md">
         <h1>Panier d'achat</h1>
+
         <div class="row">
             <div class="col-md-12 ftco-animate">
                 <div class="cart-list">
-                    <th:block th:if="${produits}"></th:block>
+                    <th:block th:if="${product}"></th:block>
                     <table class="table">
                         <thead class="thead-primary">
                         <tr class="text-center">
@@ -94,28 +152,56 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="produit : ${produits}" class="text-center">
-                            <td class="product-remove"><form th:action="@{/delete/{id}(id=${produit.id_Produit})}" method="get" th:object="${produit}" >
+                        <tr th:each="produit : ${product}" class="text-center">
+                            <td class="product-remove"><form th:action="@{/delete/{id}(id=${produit.id})}" method="get" th:object="${produit}" >
                                 <button type="submit" role ="button" class = "btn btn-warning containe" >Supprimer</button>
                             </form><span class="ion-ios-close"></span></td>
 
                             <td th:text="${produit.type} + ' en ' + ${produit.nom}" class="product-name"></td>
                             <td th:text="${produit.longueur} + 'x'+${produit.largeur} + 'x'+${produit.profondeur}"></td>
-                            <td class="quantity">
-                               <!-- <form th:action="@{/update/{id}(id=${produit.id_Produit})}" method="get" th:object="${produit}">
-                                    <input th:value="${produit.qte}" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="30">
+                            &lt;!&ndash;<td class="quantity">
+                                <form th:action="@{/update/{id}(id=${produit.id_Produit})}" method="get" th:object="${produit}">
+                                    <input th:value="${produit.quantity}" type="number" name="quantity" class="quantity form-control input-number" value="1" min="1" max="30">
                                     <button type="submit" role ="button" class = "btn btn-warning containe" >Save</button>
-                                </form>-->
-                            </td>
+                                </form>
+                            </td>&ndash;&gt;
                             <td  th:text="${produit.prix}" class="price"></td>
 
                         </tr>
-
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
+
+        <div class="container-md">
+
+           &lt;!&ndash; <h2> Information Client </h2>
+
+            <form th:action="@{/panier}" method="get" th:object="${user}" >
+                <label for="lastname">Nom: </label>  <input id="lastname" th:value="${user.getLastname()}" type="text">
+                <label for="firstname">Prénom: </label> <input id="firstname" th:value="${user.getFirstname()}" type="text"> <br>
+                <label for="email">Email: </label> <input id="email" th:value="${user.getEmail()}" type="email">
+            </form>
+            <br>&ndash;&gt;
+
+            <h2> Paiement</h2>
+
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="Paypal" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                    Paypal
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="CB" id="defaultCheck2" disabled>
+                <label class="form-check-label" for="defaultCheck2">
+                    CB (pas encore disponible)
+                </label>
+            </div>
+        </div>
+
         <div class="row justify-content-start">
             <div class="col col-lg-5 col-md-6 mt-5 cart-wrap ftco-animate">
                 <div class="cart-total mb-3">
@@ -131,38 +217,15 @@
                     <hr>
                     <p class="d-flex total-price">
                         <span>Total TTC</span>
-                        <span>$17.60</span>
+&lt;!&ndash;                        <span th:text="${commandes.totalAmount}"></span>&ndash;&gt;
                     </p>
                 </div>
-                <p class="text-center"><a href="checkout.html" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+                <button class ="btn btn-warning container" value="Valider la commande" type="submit" role="button">Valider la commande</button>
             </div>
         </div>
     </div>
 </section>
 
-
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
-<script src="js/main.js"></script>
-
-
 </body>
 </html>
+-->

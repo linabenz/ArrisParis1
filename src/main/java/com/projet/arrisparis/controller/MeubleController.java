@@ -29,19 +29,18 @@ public class MeubleController {
     }
 
     /**
-     * Méthode qui va permettre l'enregistrement des données utilisateur qui sera stocké dans la base de données.
+     * Méthode qui va permettre l'enregistrement des données du produit choisi par l'utilisateur.
      */
 
     @RequestMapping(value = "/meuble", method = RequestMethod.POST)
     public String ajouterProduit(Produits produits, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();
-        User user = userRepository.findByEmail(username);
+        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //String username = authentication.getName();
+        //User user = userRepository.findByEmail(username);
         Produits newProduit = new Produits(produits.getNom(), produits.getEpaisseur(), produits.getLongueur(), produits.getLargeur(), produits.getProfondeur());
-        newProduit.setUser(user);
+        //newProduit.setUser(user);
         produitsDAO.save(newProduit);
-        float prix = 0.000025f;
-        float prix1 = (newProduit.getLargeur()* newProduit.getLongueur()* newProduit.getProfondeur()*prix);
+        double prix1 = (newProduit.getLargeur()* newProduit.getLongueur()* newProduit.getProfondeur()*0.000025f);
         newProduit.setPrix(prix1);
         newProduit.setType("Caisson");
         produitsDAO.save(newProduit);

@@ -31,7 +31,7 @@ public class SpringConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests().antMatchers(
                 "/registration**",
-                "/css/**", "/", "/contact**", "/images/**","/acceuil**","/meuble**","/decoupe**","/panier**"
+                "/css/**", "/", "/contact**", "/images/**","/acceuil**","/meuble**","/decoupe**","/panier**","/panier/**"
         ).permitAll().antMatchers("/user/**").authenticated()
                 .anyRequest()
                 .authenticated()
