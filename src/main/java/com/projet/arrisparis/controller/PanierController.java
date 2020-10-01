@@ -53,7 +53,7 @@ public class PanierController {
     }
 
     @RequestMapping("/validation")
-    public String validation(HttpSession session, Authentication authentication, @RequestParam("id") Produits product){
+    public String validation(HttpSession session, Authentication authentication){
         Commande commande = new Commande();
         Panier cart = cartManager.getPanier(session);
         commande.setTotal(cart.getTotal());
